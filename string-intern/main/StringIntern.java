@@ -5,9 +5,9 @@ public class StringIntern {
 	String hel = "Hel";
 	String lo = "lo";
 
-	System.out.println(hello == "Hello");
-	System.out.println(hello == (hel + lo));
-	System.out.println(hello == (hel + lo).intern());
-	System.out.println(hello == otherPackage.OtherPackageClass.hello);
+	System.out.println(hello == "Hello"); // true
+	System.out.println(hello == (hel + lo)); // false
+	System.out.println(hello == (hel + lo).intern()); // true
+	System.out.println(hello == otherPackage.OtherPackageClass.hello); // true
     }
 }
