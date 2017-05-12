@@ -1,3 +1,4 @@
+package main;
 public class StringIntern {
     public static void main(String[] args) {
 	String hello = "Hello";
@@ -7,5 +8,6 @@ public class StringIntern {
 	System.out.println(hello == "Hello");
 	System.out.println(hello == (hel + lo));
 	System.out.println(hello == (hel + lo).intern());
+	System.out.println(hello == otherPackage.OtherPackageClass.hello);
     }
 }
