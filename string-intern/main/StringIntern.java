@@ -5,9 +5,17 @@ public class StringIntern {
 	String hel = "Hel";
 	String lo = "lo";
 
-	System.out.println(hello == "Hello"); // true
-	System.out.println(hello == (hel + lo)); // false
-	System.out.println(hello == (hel + lo).intern()); // true
-	System.out.println(hello == otherPackage.OtherPackageClass.hello); // true
+	compareAndPrint(hello, "Hello");
+	compareAndPrint(hello, otherPackage.OtherPackageClass.hello);
+	compareAndPrint(hello, (hel + lo));
+	compareAndPrint(hello, (hel + lo).intern());
+    }
+    
+    static void compareAndPrint(String str1, String str2) {
+	System.out.print('\'' + str1 + '\'');
+	System.out.print(" ");
+	System.out.print('\'' + str2 + '\'');
+	System.out.print(" same? ");
+	System.out.println(str1 == str2);
     }
 }
