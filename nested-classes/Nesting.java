@@ -13,6 +13,7 @@ public class Nesting {
 
 class Outer {
     private int outerData = 10;
+    String text = "text-from-outer-class";
 
     static class NestedStatic {
 	void doSomething(Outer outer) {
@@ -24,8 +25,11 @@ class Outer {
     class Inner {
 	void doSomething() {
 	    System.out.println(outerData);
+	    System.out.println(text);
+	    System.out.println(Outer.this.text);
 	}
 	int innerData = 20;
+	String text = "text-from-inner-class";    
     }
 
     void testInner() {
