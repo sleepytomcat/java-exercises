@@ -9,7 +9,8 @@ class InterruptedThread {
 	    System.out.println("main interrupted");
 	}
 
-	t.interrupt();
+	t.interrupt(); // interrupting other thread here
+
 	try {
 	    t.join();
 	}
