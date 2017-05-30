@@ -24,6 +24,13 @@ public class Autoboxing {
 	int primitiveValue;
 	for (Integer objValue: integers)
 	    primitiveValue = objValue; // unboxing Integer -> int
+
+	int x = 10;
+	Integer y = 20;
+	int z1 = x + y; // y unboxed down to int
+	Integer z2 = x + y; // same here - y unboxed down to int, 
+			    // then x + i autoboxed up to Integer.
+	System.out.println((x + y).getClass().name());
    }
 }
 
