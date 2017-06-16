@@ -7,7 +7,10 @@ public class Nesting {
 	Outer.NestedStatic n = new Outer.NestedStatic();
 	n.doSomething(obj);
 	
-	// objects of inner classes cannot be constructed outside of outer class methods 
+	// objects of inner classes cannot be constructed only with reference to outer class instance:
+	Outer outerObj = new Outer();
+	Outer.Inner innerObj = outerObj.new Inner();
+	innerObj.doSomething(); // note this instance has access to "parent" object data
     }
 }
 
