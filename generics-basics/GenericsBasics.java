@@ -4,8 +4,12 @@ public class GenericsBasics {
 	Pair<Integer, Integer> checkedObj = new Pair<Integer, Integer>(3, 7);
 	System.out.println(checkedObj);
 
-	Pair<Long, String> obj = new Pair<>(3L, "hello"); // types can be inferred by the compiler
-	Pair<String, Long> otherObj = new Pair<>(); // 'diamond' can be used with generic classes only
+	Pair<Long, String> obj = new Pair<>(3L, "hello"); // types can be inferred by the compiler from argument types
+	Pair<String, Long> otherObj = new Pair<>(); // 'diamond' can be used with generic classes only; 
+						    // type inferred from lvalue
+	bar(new Pair<>()); // type inferred from expected argument type
+
+	new Pair<>(); // type inferred as <Object, Object>
 
 	// Also can use "raw type" - class without type arguments provided;
 	// raw types exist for compatibility reasons (Java had no generics until Java 5).
@@ -20,12 +24,22 @@ public class GenericsBasics {
 	NonGenericClass ngc2 = new NonGenericClass("hello"); // type argument inferred
 
 	// 'regular' class with generic method(s) 
-	
-	String text = ngc.foo(1024L); // type argument inferred
+    	String text = ngc.foo(1024L); // type argument inferred
 	String text2 = ngc.<String>foo("hello"); // type argument explicitly declared
+ 
+	// Generic class, also with generic methods
+	GenericClassWithGenericMethod<Integer> gcwgm = new GenericClassWithGenericMethod<>();
+	gcwgm.foo("hello");
+	gcwgm.<Integer>foo(128);
+    }
+
+    static void bar(Pair<Integer, Integer> pair) {
+	pair = new Pair<Integer, Integer>();
+	System.out.println(pair);
     }
 }
 
+//*********************************
 class Pair<K, V> { // K, V are type parameters
     Pair() {
     }
@@ -44,6 +58,7 @@ class Pair<K, V> { // K, V are type parameters
     private V value;
 }
 
+//*********************************
 interface Comparable<T> {
    boolean less(T lhs, T rhs);
 }
@@ -68,6 +83,7 @@ class GenericComparator<T> implements Comparable<T> {
     }
 }
 
+//*********************************
 class NonGenericClass {
     <U> NonGenericClass(U data) { // constructors can be generic, too
 	System.out.println(data.toString());
@@ -81,3 +97,11 @@ class NonGenericClass {
 	return "bar:" + data.toString();
     }
 }
+
+//*********************************
+class GenericClassWithGenericMethod<T> {
+    T data;
+    <V> void foo(V param) {
+	System.out.println(param);
+    }
+} 
