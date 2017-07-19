@@ -38,7 +38,7 @@ public class TryWithResources {
     }
 }
 
-class MyResource implements AutoCloseable {
+class MyResource implements AutoCloseable { // should implement java.lang.AutoCloseable
     MyResource(String name) {
 	this.name = name;
 	System.out.println("MyResource '" + name + "' created");
