@@ -1,4 +1,4 @@
-public class ThrowWithResources {
+public class TryWithResources {
     public static void main(String[] args) {
 	// traditional way
 	MyResource resourceOldStyle = new MyResource("old-style");
