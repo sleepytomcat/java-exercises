@@ -10,7 +10,7 @@ class X<T> {
 
 public class main {
     public static void main(String[] args) {
-	TypeExplorer.printClassDescription(int[].class, System.out);
-	TypeExplorer.printClassDescription(Object.class, System.out);
+	X<Integer> obj = new X<Integer>();
+	TypeExplorer.printClassDescription(obj.getClass(), System.out);
     }
 }
