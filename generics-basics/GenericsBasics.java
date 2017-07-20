@@ -64,6 +64,7 @@ interface Comparable<T> {
 }
 
 class Comparator implements Comparable<Integer> {
+    @Override // bridge method actually generated here, because of type erasure
     public boolean less(Integer lhs, Integer rhs) {
 	return lhs < rhs;
     }
@@ -105,3 +106,12 @@ class GenericClassWithGenericMethod<T> {
 	System.out.println(param);
     }
 } 
+
+//*********************************
+interface A {}
+interface B {}
+class X {}
+
+class GenericClassWithBoundedType<T extends X & A & B> {
+    // can be parametrized with type that extends X, also implements both A and B
+}
