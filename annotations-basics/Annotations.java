@@ -10,7 +10,9 @@ class Test {
 }
 
 // **********************
-@interface MyAnnotationWithParam {
+// no 'implements', no 'extends' - however, every annotation implicitly extends
+// java.lang.annotations.Annotation interface
+@interface MyAnnotationWithParam { 
     int param();
 }
 
@@ -37,7 +39,6 @@ class Test3 {
 @MyAnnotationWithValueParam(128) 
 class Test4 {
 }
-
 
 // **********************
 enum Options { ONE, TWO, THREE }
