@@ -67,6 +67,7 @@ class MyClass implements Serializable {
     public transient Integer y; // will be ignored by serialization
     public String z;
     public TestData w = new TestData();
+    static final long serialVersionUID = 1423L; // recommended to provide 'protocol version'
 }
 
 // must be Serializable, too
@@ -75,4 +76,5 @@ class TestData implements Serializable {
     public String toString() {return "{a:" + a + ", b:\"" + b + "\"}";}
     public int a;
     public String b;
+    static final long serialVersionUID = 43L; // recommended to provide 'protocol version'
 }
