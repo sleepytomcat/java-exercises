@@ -15,6 +15,11 @@ class FinalDeclarations {
 	this(1); // will initialize y which is 'blank final'
     }
 
+    void f(final int x) {
+	// cannot assign value to argument declared 'final'
+	// x = 1;
+    }
+
     public static void main(String[] args) {
 	final FinalDeclarations obj = new FinalDeclarations();
 	// obj  = null; // cannot change final data
