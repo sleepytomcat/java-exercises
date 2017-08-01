@@ -11,6 +11,13 @@ public class Nesting {
 	Outer outerObj = new Outer();
 	Outer.Inner innerObj = outerObj.new Inner();
 	innerObj.doSomething(); // note this instance has access to "parent" object data
+	
+	// Interfaces can have inner classes, too:
+	MyInterface.MyClass instance = new MyInterface.MyClass();
+
+	// It's even possible to inherit from inner classes:
+	X x = new X();
+	Derived derived = new Derived(x);
     }
 }
 
@@ -45,5 +52,31 @@ class Outer {
 	NestedStatic nested = new NestedStatic();
 	nested.doSomething(this);
 	nested.nestedData = 40;
+    }
+}
+
+////////////////////////////////////////////////
+interface MyInterface {
+    void f();
+    MyClass g();
+    class MyClass {
+	void x(){
+	    System.out.println("Interfaces can have implemented inner classes, too.");
+	}
+    }
+}
+
+////////////////////////////////////////////////
+class X {
+    X() {System.out.println("Object of class X constructed");}
+    class Y {
+	Y(int value){System.out.println("Object of type X.Y constructed");}
+    }
+}
+
+class Derived extends X.Y {
+    Derived(X enclosingInstance) {
+	enclosingInstance.super(1);
+	System.out.println("Object of class Derived constructed");
     }
 }
