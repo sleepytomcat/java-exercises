@@ -1,14 +1,18 @@
 class FinalDeclarations {
     final int x = 10;
-    final int y; // 'blanc final'
+    final int y; // 'blank final'
     int z;
 
     FinalDeclarations() {
-	y = 25; // OK to initialize 'blanc final' in constructor
+	y = 25; // OK to initialize 'blank final' in constructor
     }
 
     FinalDeclarations(int z) {
-	y = 30; // Actually, all constructors must initialize 'blanc final'
+	y = 30; // Actually, all constructors must initialize 'blank final'
+    }
+
+    FinalDeclarations(double z) {
+	this(1); // will initialize y which is 'blank final'
     }
 
     public static void main(String[] args) {
