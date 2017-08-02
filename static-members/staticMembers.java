@@ -24,4 +24,8 @@ class MyClass {
     }
 
     static int g = 0;
+
+    static {
+	System.out.println("Static constructors (if more than one) are called in order of declaration");
+    }
 }
