@@ -24,7 +24,7 @@ class Consumer implements Runnable {
 	    for (int i = 0; i < 10; ++i) {
 		System.out.println("Consumer about to get value");
 		Integer value = null;
-		while((value = storage.get()) == null);
+		while((value = storage.get()) == null); // this is naive, inefficient implementation
 		System.out.println("Consumer got " + value);
 	    }
 	}
@@ -46,7 +46,7 @@ class Producer implements Runnable {
 	try {
 	    for (int i = 0; i < 10; ++i) {
 		System.out.println("Producer about to put value " + i);
-		while (!storage.put(i));
+		while (!storage.put(i)); // again, this is naive, inefficient implementation
 		Thread.sleep(500);
 	    }
 	}
