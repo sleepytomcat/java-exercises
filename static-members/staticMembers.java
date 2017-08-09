@@ -13,7 +13,11 @@ public class staticMembers {
     public static void main(String args[]) {
 	System.out.println("main() called");
 
-	System.out.println("...about to reference MyClass for the first time");
+	int m = MyClass.j;
+	System.out.println("Referencing static final compile-time-initialized field may not infer class initialization");
+	System.out.println("MyClass.j is " + MyClass.j);
+	System.out.println("(Note that MyClass static constructor has not been called)");
+	System.out.println("...about to reference non-final MyClass field for the first time");
 	int h = MyClass.g; // MyClass static constructor(s) will be called just before this statement
     }
 }
@@ -23,6 +27,7 @@ class MyClass {
 	System.out.println("MyClass static constructor called");
     }
 
+    static final int j = 5;
     static int g = 0;
 
     static {
