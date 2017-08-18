@@ -25,12 +25,13 @@ class Producer implements Runnable {
 	while (true)
 	    try {
 		int value = nextValue++;
-		Thread.sleep(10);
+		System.out.println("producing value " + value);
 		queue.put(value);
-		System.out.println("produced value " + value);
+		System.out.println("value " + value + " produced");
 	    }
 	    catch (InterruptedException e) {
 		e.printStackTrace();
+		break;
 	    }
     }
 
@@ -46,11 +47,13 @@ class Consumer implements Runnable {
 	while (true)
 	    try {
 		Thread.sleep(1000);
+		System.out.println("consuming value");
 		int value = queue.get();
-		System.out.println("consumed value " + value);
+		System.out.println("value " + value + " consumed");
 	    }
 	    catch (InterruptedException e) {
 		e.printStackTrace();
+		break;
 	    }
     }
 
@@ -66,8 +69,11 @@ class DataQueue {
 
     void put(int value) throws InterruptedException {
 	synchronized(lock) {
-	    while (data.size() >= bufferSize) 
+	    while (data.size() >= bufferSize) { // because spurious wakeup is a possibility 
+		// Current thread goes into waiting state,
+		// allowing any other thread to enter this synchronized block.
 		lock.wait();
+	    }
 
 	    data.add(value);
 	    System.out.println("added " + value + ", now " + data);
@@ -77,17 +83,22 @@ class DataQueue {
 
     int get() throws InterruptedException {
 	synchronized(lock) {
-	    while (data.size() == 0) 
+	    while (data.size() == 0) // because spurious wakeup is a possibility
 		lock.wait();
 
 	    Integer value = data.remove(0);
 	    System.out.println("removed " + value + ", now " + data);
-	    lock.notify();
+
+	    // Waiting thread, if any, will be notified; however it will become active
+	    // only after current thread would be leaving the synchronized block
+	    // (which means there would be no more than one active thread here). 
+	    lock.notify(); 
+	    
 	    return value;
 	}
     }
 
     private List<Integer> data;
-    Object lock;
+    Object lock; // actually, this could be used as a lock object
     int bufferSize;
 }
