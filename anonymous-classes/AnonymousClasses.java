@@ -43,4 +43,8 @@ interface I {
 class MyClass {
     MyClass(int arg) {System.out.println("MyClass instance constructed with argument " + arg);}
     void h() {System.out.println("MyClass.h() called");}
+
+    {
+	System.out.println("Actually, any class can have initializer blocks(s) that will be executed before constructor call");
+    }
 }
