@@ -18,17 +18,17 @@ public class Volatile {
     static class ChangeListener extends Thread {
 	@Override
 	public void run() {
-	    int local_value = MY_INT;
-	    while (local_value < 5) {
-		if (local_value != MY_INT) {
-		    System.out.println("Got Change for MY_INT :" + MY_INT);
-		    local_value = MY_INT;
+	    int last_known_value = MY_INT;
+	    while (last_known_value < 5) {
+		if (last_known_value != MY_INT) {
+		    System.out.println("Thread A: MY_INT changed, was " + last_known_value + " now " + MY_INT);
+		    last_known_value = MY_INT;
 		}
 
-		// Adding the Thread.sleep(500) would likely 'fix' the issue even if there's no 'volatile' modifier
+		// Adding the Thread.sleep(5) would likely 'fix' the issue even if there's no 'volatile' modifier
 		// applied to MY_INT - the reason for this JVM would decide it's Ok to propagate shared memory changes to 
 		// local thread memory.
-		// try {Thread.sleep(500);} catch (InterruptedException e) {e.printStackTrace();}
+		// try {Thread.sleep(5);} catch (InterruptedException e) {e.printStackTrace();}
 	    }
 	}
     }
@@ -36,16 +36,16 @@ public class Volatile {
     static class ChangeMaker extends Thread{
 	@Override
 	public void run() {
-	    int local_value = MY_INT;
-	    while (local_value < 5) {
-		System.out.println("Incrementing MY_INT to " + (local_value + 1));
-		MY_INT = ++local_value;
+	    while (MY_INT < 5) {
 		try {
 		    Thread.sleep(500);
 		} 
 		catch (InterruptedException e) {
 		    e.printStackTrace();
 		}
+
+		++MY_INT;
+		System.out.println("Thread B: incrementing MY_INT to " + MY_INT);
 	    }
 	}
     }
