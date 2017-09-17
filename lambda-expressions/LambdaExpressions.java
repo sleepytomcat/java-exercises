@@ -17,7 +17,10 @@ public class LambdaExpressions {
 	// using instance methods as lambda
 	System.out.println("Passing object method in place of lambda:");
 	obj.apply((Func1arg)(System.out::println));
-    
+	
+	System.out.println("Passing class static method in place of lambda");
+	obj.apply(LambdaExpressions::f);
+
 	// lambda expression with several arguments
 	obj.apply((a, b, c) -> System.out.println("Lambda with multiple arguments:'" + a + "+" + b + "+" + c + "'"));
 
@@ -40,6 +43,8 @@ public class LambdaExpressions {
     void apply(Func0args f) {f.process();}
     void apply(Func3args f) {f.process("prefix", "text", "postfix");}
     void doAdd(Summation f) {System.out.println("1 + 2 = " + f.sum(1,2));}
+
+    static void f(String text) {};
 }
 
 @FunctionalInterface // interface should provide exactly one abstract method (default methods do not count)
