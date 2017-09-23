@@ -31,6 +31,9 @@ public class GenericsBasics {
 	GenericClassWithGenericMethod<Integer> gcwgm = new GenericClassWithGenericMethod<>();
 	gcwgm.foo("hello");
 	gcwgm.<Integer>foo(128);
+    
+	// Generic class with bounded type (by class and interfaces)
+	GenericClassWithBoundedType<ExtendsXimplementsAandB> gcwb = new GenericClassWithBoundedType<ExtendsXimplementsAandB>();
     }
 
     static void bar(Pair<Integer, Integer> pair) {
@@ -114,4 +117,7 @@ class X {}
 
 class GenericClassWithBoundedType<T extends X & A & B> {
     // can be parametrized with type that extends X, also implements both A and B
+}
+
+class ExtendsXimplementsAandB extends X implements A, B {
 }
