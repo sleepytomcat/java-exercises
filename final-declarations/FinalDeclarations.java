@@ -3,8 +3,16 @@ class FinalDeclarations {
     final int y; // 'blank final'
     int z;
 
+    final int a = x; // can use other final fields to init, however they must be already declared and initialized (as init happens in order of declaration)
+    final int b = z; // can even use other non-final fields to init
+
+    final int w = g(); // can use method calls to initialize final fields
+    int g() {System.out.println("g() called"); return mmm;}
+final int mmm = g();
     FinalDeclarations() {
+	System.out.println("FinalDeclarations constructor called");
 	y = 25; // OK to initialize 'blank final' in constructor
+	System.out.println("w is " + w + " " + y); // surprisingly, this code compiles fine 
     }
 
     FinalDeclarations(int z) {
