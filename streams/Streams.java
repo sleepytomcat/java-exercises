@@ -1,11 +1,11 @@
-import java.util.Random;
 import java.util.List;
 import java.util.LinkedList;
-import java.util.stream.Collectors;
-import java.lang.System;
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.Set;
+import java.util.HashSet;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class Streams {
     public static void main(String[] args) {
@@ -80,5 +80,24 @@ public class Streams {
 	    .distinct()
 	    .collect(Collectors.toList());
     }
-}
 
+    static Map<Integer, List<String>> groupStringByLength(List<String> strings) {
+	Map<Integer, List<String>> groupedStrings = new HashMap<>();
+	for (String string: strings) {
+	    int length = string.length();
+	    if (!groupedStrings.containsKey(length)){
+		List<String> bucket = new LinkedList<>();
+		bucket.add(string);
+		groupedStrings.put(length, bucket);
+	    }	    
+	    else {
+		groupedStrings.get(length).add(string);
+	    }
+	}
+	return groupedStrings;
+    }
+
+    static Map<Integer, List<String>> groupStringsByLength_stream(List<String> strings) {
+	return strings.stream().collect(Collectors.groupingBy(String::length));
+    }
+}
