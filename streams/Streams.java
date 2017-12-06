@@ -8,9 +8,6 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class Streams {
-    public static void main(String[] args) {
-    }
-
     static void print(List<Integer> numbers) {
 	for (Integer number: numbers) {
 	    System.out.println(number);
@@ -99,5 +96,26 @@ public class Streams {
 
     static Map<Integer, List<String>> groupStringsByLength_stream(List<String> strings) {
 	return strings.stream().collect(Collectors.groupingBy(String::length));
+    }
+
+    static List<String> flatten(List<List<String>> listOfLists) {
+	List<String> result = new LinkedList<>();
+	for (List<String> list: listOfLists) {
+	    result.addAll(list);
+	}
+	return result;
+    }
+
+    static List<String> flatten_stream(List<List<String>> listOfLists) {
+	return listOfLists.stream()
+	    .flatMap(List::stream)
+	    .collect(Collectors.toList());
+    }
+
+    static void lazyEvaluation_stream(List<Integer> indexes, int noMoreThan) {
+	indexes.stream()
+	    .peek(value -> System.out.println("...computing " + value.toString()))
+	    .limit(noMoreThan)
+	    .collect(Collectors.toList());
     }
 }

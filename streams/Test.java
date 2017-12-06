@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class Test {
     public static void main(String[] args) {
 	List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 7, 5, 7, 3, 3);
-	
+
 	System.out.println("Print numbers, for loop");
 	Streams.print(numbers);
 	System.out.println("Print numbers, stream");
@@ -52,5 +52,9 @@ public class Test {
 	Streams.flatten(listOfLists).forEach(System.out::println);
 	System.out.println("Flatten list of numbers, stream");
 	Streams.flatten_stream(listOfLists).forEach(System.out::println);
+
+	int limit = 3; 
+	System.out.println("Streams are lazy: input data list is " + numbers.size() + " values, limit is " + limit);
+	Streams.lazyEvaluation_stream(numbers, limit);
     }
 }
