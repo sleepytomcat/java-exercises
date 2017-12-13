@@ -4,6 +4,9 @@ public class Optionals {
     public static void main(String[] args) {
 	World world = generateWorld();
 
+	// Displaying building tenant name of Wallaby Way, 42, Sydney, Australia
+	
+	// 1) 'Old school'
 	boolean found = false;
 	if (world != null) {
 	    Country country = world.getCountry("Australia");
@@ -26,27 +29,25 @@ public class Optionals {
 	    System.out.println("No data");
 	}
 
-	////////////////////////////////////////////////////////////////
-
-	world.getCountry_Optional("Australia")
+	// 2) Using Optional<>
+	System.out.println(world.getCountry_Optional("Australia")
 	    .flatMap(country -> country.getCity_Optional("Sydney"))
 	    .flatMap(city -> city.getStreet_Optional("Wallaby Way"))
 	    .flatMap(street -> street.getBuilding_Optional("42"))
-	    .flatMap(building -> building.getTenantName())
-	    .orElse("No data")
-	    .ifPresent(System.out::println);
+	    .map(building -> building.getTenantName()))
+	    .orElse("No data");
     }
 
+    // Helper function to generate a World
     private static World generateWorld() {
-	Building building = new Building("Nemo");
-	Street street = new Street();
-	street.addBuilding("42", building);
-	City city = new City();
-	city.addStreet("Wallaby Way", street);
-	Country country = new Country();
-	country.addCity("Sydney", city);
-	World world = new World();
-	world.addCountry("Australia", country);
+	World world = new World().addCountry("Australia", new Country()
+		.addCity("Sydney", new City()
+		    .addStreet("Wallaby Way", new Street()
+			.addBuilding("42", new Building("Nemo"))
+		    )
+		)
+	    );
+	
 	return world;
     }
 }

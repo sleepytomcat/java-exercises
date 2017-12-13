@@ -11,8 +11,9 @@ class World {
 	return Optional.ofNullable(countries.get(countryName));
     }
     
-    void addCountry(String countryName, Country country) {
+    World addCountry(String countryName, Country country) {
 	countries.put(countryName, country);
+	return this;
     }
 
     private Map<String, Country> countries = new HashMap<>();
@@ -27,8 +28,9 @@ class Country {
 	return Optional.ofNullable(cities.get(cityName));
     }
     
-    void addCity(String cityName, City city) {
+    Country addCity(String cityName, City city) {
 	cities.put(cityName, city);
+	return this;
     }
 
     private Map<String, City> cities = new HashMap<>();
@@ -43,8 +45,9 @@ class City {
 	return Optional.ofNullable(streets.get(streetName));
     }
 
-    void addStreet(String streetName, Street street) {
+    City addStreet(String streetName, Street street) {
 	streets.put(streetName, street);
+	return this;
     }
 
     private Map<String, Street> streets = new HashMap<>();
@@ -59,8 +62,9 @@ class Street {
 	return Optional.ofNullable(buildings.get(buildingNumber));
     }
 
-    void addBuilding(String buildingNumber, Building building) {
+    Street addBuilding(String buildingNumber, Building building) {
 	buildings.put(buildingNumber, building);
+	return this;
     }
 
     private Map<String, Building> buildings = new HashMap<>();
