@@ -17,8 +17,11 @@ public class Optionals {
 		    if (street != null) {
 			Building building = street.getBuilding("42");
 			if (building != null) {
-			    System.out.println(building.getTenantName());
-			    found = true;
+			    String tenantName = building.getTenantName();
+			    if (tenantName != null) {
+				System.out.println(tenantName);
+				found = true;
+			    }
 			}
 		    }
 		}
@@ -34,8 +37,9 @@ public class Optionals {
 	    .flatMap(country -> country.getCity_Optional("Sydney"))
 	    .flatMap(city -> city.getStreet_Optional("Wallaby Way"))
 	    .flatMap(street -> street.getBuilding_Optional("42"))
-	    .map(building -> building.getTenantName()))
-	    .orElse("No data");
+	    .map(building -> building.getTenantName())
+	    .orElse("No data")
+	);
     }
 
     // Helper function to generate a World
