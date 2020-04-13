@@ -5,8 +5,8 @@ class SneakyThrow {
       throw (T) ex;
   }
 
-  static void noCheckedExceptionsDeclared() {
-      sneakyThrow(new IOException()); // checked exception
+  static void noCheckedExceptionsDeclared() { // no checked exceptions declared
+      sneakyThrow(new IOException()); // checked exception will be thrown
   }
 
   public static void main(String[] args) {
